@@ -5,8 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex">
-    <title>{{ page.title }}</title>
+    <title>{{ site.title }}</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.0.min.js" integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I=" crossorigin="anonymous"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -147,14 +148,25 @@
         padding-left: 0;
         list-style: none;
       }
+
+      .contact {
+        display: none;
+      }
+
+      .email,
+      .phone,
+      .address_line_1,
+      .address_line_2 {
+        display: block;
+      }
     </style>
   </head>
   <body>
     <div class="container">
       <header>
         <h1 class="page_title">
-          <strong>{{ page.contact.first_name }}</strong> {{ page.contact.last_name }}
-          <small>{{ page.contact.description }}</small>
+          <strong>{{ site.contact.first_name }}</strong> {{ site.contact.last_name }}
+          <small>{{ site.contact.job_description }}</small>
         </h1>
       </header>
       <main>
@@ -162,9 +174,9 @@
           <!--Left column-->
           <div class="col-sm-3">
             <!--Contact-->
-            <!-- <div class="contact">
-              {% include contact.html contact=site.data.contact%}
-            </div> -->
+            <div class="contact">
+              {% include contact.html contact=site.contact%}
+            </div>
 
             <!--Education-->
             <div class="education">
@@ -188,5 +200,31 @@
         </div>
       </main>
     </div>
+    <script>
+      $(() => {
+        const key = qs("key");
+
+        if (!key) {
+          return;
+        }
+
+        $.ajax({
+            url: "{{ site.api_endpoint }}",
+            headers: { "x-api-key": key }
+        }).done((data) => {
+          console.log(data);
+          $(".contact").show();
+          $(".email").text(data.email).attr("href", "mailto:" + data.email + "?Subject=Contact");
+          $(".phone").text(data.phone).attr("href", "tel:" + data.phone.replace(" ", ""));
+          $(".address_line_1").text(data.address_line_1);
+          $(".address_line_2").text(data.address_line_2);
+        });
+      });
+
+      function qs(name) {
+        if(name = (new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
+            return decodeURIComponent(name[1]);
+      }
+    </script>
   </body>
 </html>
