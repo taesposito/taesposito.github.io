@@ -1,5 +1,5 @@
 
-Sales and Marketing professional with accomplishments in project management, business administration and consulting. Experienced in operations,recruiting, leadership and performance management. Able to multi-task in a fast paced team environment.
+Sales and Marketing professional with accomplishments in project management, business administration and consulting. Experienced in operations, recruiting, leadership and performance management. Able to multi-task in a fast paced team environment.
 
 ## Professional experience
 
