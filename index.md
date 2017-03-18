@@ -5,4 +5,5 @@ title: Tania Esposito
 contact:
   first_name: Tania
   last_name: Esposito
+  description: Sales and Marketing Professional
 ---
