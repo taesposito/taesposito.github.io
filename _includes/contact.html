@@ -1,0 +1,8 @@
+<h2>Contact</h2>
+
+<address>
+  <a href="mailto:{{ page.contact.email }}?Subject=Contact">{{ page.contact.email }}</a><br>
+  <a href="tel:{{ page.contact.phone | remove:" " }}">{{ page.contact.phone }}</a><br>
+  {{ page.contact.address.street }} {{page.contact.address.number }}<br>
+  {{ page.contact.address.post_code }}, {{ page.contact.address.city }}<br>
+</address>
